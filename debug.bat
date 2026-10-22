@@ -1,0 +1,1 @@
+dotnet build phoenix-client-ui.sln --configuration Debug

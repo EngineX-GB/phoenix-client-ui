@@ -1,0 +1,408 @@
+﻿<Window x:Class="phoenix_prototype.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:phoenix_prototype"
+        xmlns:syswin="clr-namespace:System.Windows;assembly=PresentationFramework"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+
+        mc:Ignorable="d"
+        Background="Black"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+
+        Title="Phoenix Execution Client"
+        Icon="assets/phoenix.ico"
+        
+        ShowInTaskbar="True"
+        Loaded="Window_Loaded"
+        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}">
+
+<!-- Icon was created using x icon editor web -->
+    <WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            CaptionHeight="0"
+            ResizeBorderThickness="6"
+            GlassFrameThickness="0"
+            CornerRadius="0"
+            UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
+
+    <Window.Resources>
+        <!-- Dark Menu Bar -->
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <!-- Dark MenuItem -->
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="BorderBrush" Value="#222"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Grid>
+                            <!-- Header -->
+                            <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                Padding="6,3">
+                                <ContentPresenter x:Name="HeaderPresenter" ContentSource="Header" Margin="0,0,0,0" />
+                            </Border>
+
+                            <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               IsOpen="{TemplateBinding IsSubmenuOpen}">        
+                                <Border Background="Transparent" Padding="4">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black"
+                                          BlurRadius="14"
+                                          ShadowDepth="2"
+                                          Opacity="0.6"/>
+                                    </Border.Effect>
+
+                                    <Border Background="#222"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        Padding="2"
+                                        Width="200">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </Border>
+                                </Border>
+                            </Popup>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="Role" Value="SubmenuItem">
+                                <Setter TargetName="HeaderPresenter" Property="Margin" Value="22,0,0,0"/>
+                            </Trigger>
+
+
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#333"/>
+                            </Trigger>
+
+                            <!-- Dropdown open -->
+                            <Trigger Property="IsSubmenuOpen" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#444"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="Separator">
+            <Setter Property="Margin" Value="4,2"/>
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Background="White"
+                        Height="1"
+                        HorizontalAlignment="Stretch"
+                        Margin="12,4,4,4"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+    </Window.Resources>
+
+
+
+    <DockPanel>
+        <!-- Custom Title Bar -->
+        <Border DockPanel.Dock="Top"
+                Background="#333"
+                Height="25"
+                MouseDown="TitleBar_MouseDown"
+                MouseLeftButtonDown="TitleBar_MouseDoubleClick">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <!-- icon -->
+                    <ColumnDefinition />
+                    <!-- Title -->
+                    <ColumnDefinition Width="40" />
+                    <!-- Minimise -->
+                    <ColumnDefinition Width="40" />
+                    <!-- Maximum -->
+                    <ColumnDefinition Width="40" />
+                    <!-- Close -->
+                </Grid.ColumnDefinitions>
+
+
+                <Image Grid.Column="0"  Source="/assets/ch_icon.png"
+                        Width="20"
+                        Height="20"
+                        Stretch="Uniform"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"/>
+
+                <!-- Title -->
+                <TextBlock Grid.Column="1" 
+                    Text="Phoenix Execution Client"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="1,0,0,0"
+                           Foreground="White"
+                           FontSize="12"
+                           FontFamily="Microsoft Sans Serif" />
+
+
+
+
+                <!-- Minimise Button -->
+                <Button Grid.Column="2"
+                        Content="▁"
+                        Width="40"
+                        Background="#222"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        FontWeight="Bold"
+                        Click="MinimiseButton_Click"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" />
+
+
+                <Button Grid.Column="3"
+                        Content="🗖"
+                        Width="40"
+                        Background="#222"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        FontWeight="Bold"
+                        Click="MaximiseButton_Click"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        />
+
+                <!-- Close Button -->
+                <Button Grid.Column="4"
+                        Content="⨯"
+                        Width="40"
+                        Background="Red"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        FontWeight="Bold"
+                        Click="CloseButton_Click"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        />
+
+            </Grid>
+        </Border>
+        <!-- Menu Bar -->
+        <Menu DockPanel.Dock="Top"
+          Background="#222"
+          Foreground="White"
+          Height="25">
+
+            <MenuItem Header="System">
+                <MenuItem Header="Exit" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Market">
+                <MenuItem Header="Load Assets: London" Click="LoadMarketData_LondonRegion_Click"/>
+                <MenuItem Header="Load Assets By Region" Click="MarketLoadRegionDialog_Click"/>
+                <MenuItem Header="Load Assets For All Regions" Click="LoadMarketData_AllRegions_Click"/>
+                <MenuItem Header="Load Preview Data"/>
+                <Separator />
+                <MenuItem Header="Load Ratings"/>
+                <MenuItem Header="Load Service Reports"/>
+            </MenuItem>
+
+            <MenuItem Header="Analytics">
+                <MenuItem Header="Refresh Analytics Data" />
+            </MenuItem>
+
+            <MenuItem Header="Communications">
+                <MenuItem Header="SMTP Settings" Click="SmtpSettings_Click" />
+                <MenuItem Header="Email Account Settings" Click="EmailAccountSettings_Click" />
+
+            </MenuItem>
+
+            <MenuItem Header="View">
+                <MenuItem Header="Watchlist" Click="Watchlist_Click"/>
+                <MenuItem Header="Orders" Click="Orders_Click"/>
+                <MenuItem Header="Listings" Click="Listings_Click"/>
+                <MenuItem Header="News" Click="News_Click" />
+                <MenuItem Header="Notifications" Click="Notifications_Click" />
+                <Separator />
+                <MenuItem Header="Load Default Layout" Click="LoadDefaultLayout_Click" />
+                <MenuItem Header="Import Layout" Click="ImportLayoutDialog_Click" />
+                <MenuItem Header="Export Layout" Click="ExportLayoutDialog_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Help"/>
+        </Menu>
+
+
+        <!-- Custom Toolbar -->
+        <Border DockPanel.Dock="Top" Padding="2" BorderBrush="#111" BorderThickness="0.5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#444444" Offset="0" />
+                    <!-- Grey -->
+                    <GradientStop Color="#000000" Offset="1" />
+                    <!-- Black -->
+                </LinearGradientBrush>
+            </Border.Background>
+
+
+            <Border.Resources>
+                <Style TargetType="Button" x:Key="DarkButton">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="LightGray"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="3,3"/>
+                    <Setter Property="Margin" Value="0,0,1,0"/>
+
+                    <!-- Fixed size -->
+                    <Setter Property="Width" Value="25"/>
+                    <Setter Property="Height" Value="25"/>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#444"/>
+                                    </Trigger>
+
+                                    <!-- Pressed -->
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#555"/>
+                                    </Trigger>
+
+                                    <!-- Disabled -->
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="border" Property="Background" Value="#333"/>
+                                        <Setter Property="Foreground" Value="#777"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+
+                    <Style.Triggers>
+                        <!-- Hover effect -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+
+
+                </Style>
+
+
+                <!-- Used for showing statuses on the toolbar - e.g. connectivity to the market, ingestion service, etc.-->
+                <!-- It's similar to the DarkButton theme -->
+                <Style TargetType="Button" x:Key="DarkStatusButton">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="3,5"/>
+                    <Setter Property="Margin" Value="0,0,5,0"/>
+
+                    <!-- Fixed size -->
+                    <Setter Property="Width" Value="50"/>
+                    <Setter Property="Height" Value="25"/>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#444"/>
+                                    </Trigger>
+
+                                    <!-- Pressed -->
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#555"/>
+                                    </Trigger>
+
+                                    <!-- Disabled -->
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="border" Property="Background" Value="#333"/>
+                                        <Setter Property="Foreground" Value="#777"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+
+                    <Style.Triggers>
+                        <!-- Hover effect -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+
+                </Style>
+            </Border.Resources>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="✚" Style="{StaticResource DarkButton}" ToolTip="View Orders"/>
+                <Button Content="🔍" Style="{StaticResource DarkButton}" ToolTip="View Search Listings"/>
+                <Button Content="👁" Style="{StaticResource DarkButton}" ToolTip="View Watchlist"/>
+                <Button Content="📰" Style="{StaticResource DarkButton}" ToolTip="View News and Reports"/>
+                <Button Content="🎭" Style="{StaticResource DarkButton}" ToolTip="Mask Asset Details" Click="WindowAdjustTestButton_Click" IsEnabled="True"/>
+                <Button Name="btnMarket" Content="Market" Style="{StaticResource DarkStatusButton}" 
+                        Foreground="{Binding MarketStatusColor}"
+                        ToolTip="Market Connector Status" 
+                        IsEnabled="True"
+                        Click="MarketPingButton_Click"/>
+                <Button Name="btnIngestion" Content="Ingestion" Style="{StaticResource DarkStatusButton}" ToolTip="Ingestion Connector Status"
+                        Foreground="{Binding IngestionStatusColor}" 
+                        IsEnabled="True"
+                        Click="IngestionPingButton_Click"/>
+                <Button Content="Stats" Style="{StaticResource DarkStatusButton}" ToolTip="Window Stats" Click="WindowStatsButton_Click" IsEnabled="True"/>
+                <Button Content="Adjust" Style="{StaticResource DarkStatusButton}" ToolTip="Window Stats" Click="WindowAdjustTestButton_Click" IsEnabled="True"/>
+         
+                
+                
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Background="#111">
+            <!-- Your UI goes here -->
+        </Grid>
+    </DockPanel>
+</Window>

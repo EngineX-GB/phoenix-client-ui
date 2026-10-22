@@ -1,0 +1,89 @@
+
+# ==========================================
+# Build output directories
+# ==========================================
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+out/
+artifacts/
+
+# ==========================================
+# Visual Studio IDE
+# ==========================================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.sln.ide
+
+# ==========================================
+# .NET build and test artifacts
+# ==========================================
+*.pdb
+*.mdb
+*.cache
+*.ilk
+*.log
+TestResults/
+BenchmarkDotNet.Artifacts/
+
+# ==========================================
+# NuGet packages
+# ==========================================
+*.nupkg
+*.snupkg
+.nuget/
+# Uncomment only if you use a local packages directory:
+# packages/
+
+# ==========================================
+# WPF and XAML generated files
+# ==========================================
+*.g.cs
+*.g.i.cs
+*.baml
+*.resources
+GeneratedInternalTypeHelper.g.cs
+
+# ==========================================
+# Code coverage and profiling
+# ==========================================
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# ==========================================
+# Temporary and backup files
+# ==========================================
+*.tmp
+*.temp
+*.bak
+*.old
+*~
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# ==========================================
+# Publish output
+# ==========================================
+publish/
+[Pp]ublish/
+
+# ==========================================
+# Optional: local environment files
+# ==========================================
+.env
+.env.*
+!.env.example
