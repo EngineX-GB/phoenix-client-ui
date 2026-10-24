@@ -1,5 +1,5 @@
 {
-    "client-ui.version":  "0.0.19",
+    "client-ui.version":  "0.0.20",
     "client-svc.version":  "0.0.11",
     "connector.version":  "0.0.14",
     "ingestion.version":  "0.0.5"
