@@ -12,6 +12,7 @@ x86/
 [Aa]rm64/
 out/
 artifacts/
+temp/
 
 # ==========================================
 # Visual Studio IDE
