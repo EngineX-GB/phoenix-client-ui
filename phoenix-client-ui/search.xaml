@@ -184,7 +184,9 @@
                 <Button Content="✉︎" Style="{StaticResource DarkButton}" ToolTip="Send Mail"/>
                 <Button Content="∞" Style="{StaticResource DarkButton}" ToolTip="Link Clients"/>
                 <Button Content="✚" Style="{StaticResource DarkButton}" ToolTip="Add to Watchlist" Click="AddToWatchlist_Click"/>
-                <Button Content="R" Style="{StaticResource DarkButton}" ToolTip="Fetch Ratings" Click="FetchRatings_Click"/>
+                <Button Content="R" Style="{StaticResource DarkButton}" ToolTip="Fetch latest Ratings" Click="FetchRatings_Click"/>
+                <Button Content="R*" Style="{StaticResource DarkButton}" ToolTip="Fetch All Ratings" Click="FetchRatings_Click"/>
+                <Button Content="◉" Style="{StaticResource DarkButton}" ToolTip="Fetch Previews" />
 
                 <DatePicker Width="100" Height="auto" Background="#1A1A1A" Foreground="DarkGray" BorderBrush="#333333" BorderThickness="0"
                             FontSize="10">

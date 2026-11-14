@@ -221,6 +221,7 @@
           Height="25">
 
             <MenuItem Header="System">
+                <MenuItem Header="Settings" />
                 <MenuItem Header="Exit" Click="ExitMenuItem_Click"/>
             </MenuItem>
 
@@ -256,7 +257,10 @@
                 <MenuItem Header="Export Layout" Click="ExportLayoutDialog_Click"/>
             </MenuItem>
 
-            <MenuItem Header="Help"/>
+            <MenuItem Header="Help">
+                <MenuItem Header="Check for updates" />
+                <MenuItem Header="About" />
+            </MenuItem>
         </Menu>
 
 
