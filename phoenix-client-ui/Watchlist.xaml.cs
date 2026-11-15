@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using phoenix_prototype.config;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -67,7 +68,7 @@ namespace phoenix_prototype
             using var client = new HttpClient();
 
             // Replace with your real API endpoint
-            string url = "http://localhost:8081/watchlist/today";
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/watchlist/today";
 
             var response = await client.GetAsync(url);
             Console.WriteLine(response.Content);
@@ -139,7 +140,7 @@ namespace phoenix_prototype
             // IMPORTANT: "myFile" must match your server's expected field name
             form.Add(fileContent, "file", System.IO.Path.GetFileName(filePath));
 
-            var response = await client.PostAsync("http://localhost:8081/watchlist/import", form);
+            var response = await client.PostAsync(ConfigurationManager.Settings.ClientServiceEndpoint + "/watchlist/import", form);
             response.EnsureSuccessStatusCode();
         }
 
@@ -165,7 +166,7 @@ namespace phoenix_prototype
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new Uri("http://localhost:8081/watchlist"),
+                RequestUri = new Uri(ConfigurationManager.Settings.ClientServiceEndpoint + "/watchlist"),
                 Content = JsonContent.Create(payload)   // attaches JSON body
             };
 

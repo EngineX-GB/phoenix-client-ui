@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using phoenix_prototype.config;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -59,7 +60,7 @@ namespace phoenix_prototype
             using var client = new HttpClient();
 
             // Replace with your real API endpoint
-            string url = "http://localhost:8081/orders/all";
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/orders/all";
 
             var response = await client.GetAsync(url);
             Console.WriteLine(response.Content);
@@ -78,7 +79,7 @@ namespace phoenix_prototype
         public bool CancelOrder(string orderId)
         {
             using var client = new HttpClient();
-            string url = "http://localhost:8081/orders/cancel?id=" + orderId;
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/orders/cancel?id=" + orderId;
             var request = new HttpRequestMessage(HttpMethod.Put, url);
             var response = client.Send(request);
             return response.IsSuccessStatusCode;
@@ -157,7 +158,7 @@ namespace phoenix_prototype
             // IMPORTANT: "myFile" must match your server's expected field name
             form.Add(fileContent, "file", System.IO.Path.GetFileName(filePath));
 
-            var response = await client.PostAsync("http://localhost:8081/orders/import", form);
+            var response = await client.PostAsync(ConfigurationManager.Settings.ClientServiceEndpoint + "/orders/import", form);
             response.EnsureSuccessStatusCode();
         }
 

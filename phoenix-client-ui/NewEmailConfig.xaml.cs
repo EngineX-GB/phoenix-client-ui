@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -66,7 +67,7 @@ namespace phoenix_prototype
             emailConfigRequest.Port = int.Parse(TxtPort.Text);
 
             using var httpClient = new HttpClient();
-            string url = "http://localhost:8081/comms/email/config/add";
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/comms/email/config/add";
 
             var json = JsonSerializer.Serialize(emailConfigRequest);
             var content = new StringContent(json, Encoding.UTF8, "application/json");

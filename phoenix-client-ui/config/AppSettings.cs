@@ -12,5 +12,8 @@ namespace phoenix_prototype.config
 
         public string ClientServiceEndpoint { get; set; } =
             "http://localhost:8081";
+
+        public string ClientServiceWsEndpoint { get; set; } =
+            "ws://localhost:8081";
     }
 }

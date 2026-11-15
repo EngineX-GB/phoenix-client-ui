@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -135,7 +136,7 @@ namespace phoenix_prototype
             string defaultNotesString = !TxtNotes.Text.Equals("") ? TxtNotes.Text : "Order submitted on " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
 
-            string url = "http://localhost:8081/orders";
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/orders";
             using var httpClient = new HttpClient();
             // prepare request
 

@@ -1,4 +1,5 @@
 ﻿using phoenix_prototype;
+using phoenix_prototype.config;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -46,7 +47,7 @@ public class MainViewModel : INotifyPropertyChanged
     public async Task InitializeAsync()
     {
         _wsService.OnNotificationReceived += HandleNotification;
-        await _wsService.ConnectAsync("ws://localhost:8081/ws");
+        await _wsService.ConnectAsync(ConfigurationManager.Settings.ClientServiceWsEndpoint + "/ws");
     }
 
 

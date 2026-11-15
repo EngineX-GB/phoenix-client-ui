@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -46,7 +47,7 @@ namespace phoenix_prototype
         private async Task submitDataLoad(string regionId)
         {
             // make the call to the client service to load the region
-            string url = "http://localhost:8081/market/load/region?id=" + regionId;
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/market/load/region?id=" + regionId;
             using var client = new HttpClient();
             var response = await client.PostAsync(url, null);
             if (response.StatusCode != System.Net.HttpStatusCode.Created)

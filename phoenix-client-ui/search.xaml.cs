@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -80,7 +81,7 @@ namespace phoenix_prototype
                 using var client = new HttpClient();
 
                 // Replace with your real API endpoint
-                string url = "http://localhost:8081/search?nationality=British";
+                string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/search?nationality=British";
 
                 var response = await client.GetAsync(url);
                 Console.WriteLine(response.Content);
@@ -133,7 +134,7 @@ namespace phoenix_prototype
 
                 using var client = new HttpClient();
 
-                string url = "http://localhost:8081/search?" + queryParams;
+                string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/search?" + queryParams;
 
                 var response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();

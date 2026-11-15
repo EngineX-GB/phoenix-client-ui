@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace phoenix_prototype
 
             // POST the object as JSON
             var response = await client.PostAsJsonAsync(
-                "http://localhost:8081/watchlist",
+                ConfigurationManager.Settings.ClientServiceEndpoint + "/watchlist",
                 payload
             );
 

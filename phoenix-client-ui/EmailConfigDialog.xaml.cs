@@ -1,4 +1,5 @@
-﻿using System;
+﻿using phoenix_prototype.config;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -106,7 +107,7 @@ namespace phoenix_prototype
         private async Task DeleteEmailConfigData(int userId)
         {
             using var httpClient = new HttpClient();
-            string url = "http://localhost:8081/comms/email/config/remove?id=" + userId;
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/comms/email/config/remove?id=" + userId;
             var response = await httpClient.DeleteAsync(url);
             response.EnsureSuccessStatusCode();
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
@@ -122,7 +123,7 @@ namespace phoenix_prototype
         private async Task GetSavedEmailConfigData()
         {
             using var httpClient = new HttpClient();
-            string emailConfigUrl = "http://localhost:8081/comms/email/configs";
+            string emailConfigUrl = ConfigurationManager.Settings.ClientServiceEndpoint + "/comms/email/configs";
             var response = await httpClient.GetAsync(emailConfigUrl);
             response.EnsureSuccessStatusCode();
             if (response.StatusCode != System.Net.HttpStatusCode.OK)

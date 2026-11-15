@@ -512,7 +512,7 @@ namespace phoenix_prototype
             using var client = new HttpClient();
 
             // Replace with your real API endpoint
-            string url = "http://localhost:8081/monitor/ping?serviceName=" + serviceName;
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/monitor/ping?serviceName=" + serviceName;
 
             var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();

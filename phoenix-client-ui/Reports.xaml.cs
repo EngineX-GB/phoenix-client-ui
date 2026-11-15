@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using phoenix_prototype.config;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Runtime.InteropServices;
@@ -126,19 +127,19 @@ namespace phoenix_prototype
 
             if (direction == null)
             {
-                url = "http://localhost:8081/feedback?userId=" + userId;
+                url = ConfigurationManager.Settings.ClientServiceEndpoint + "/feedback?userId=" + userId;
             }
             else if (direction == "FORWARD")
             {
                 var feedbackEntry = _data.FeedbackEntries[^1];    // get the last entry in the collection that is currently viewing (before getting the next batch)
                 int offsetId = feedbackEntry.Oid;
-                url = "http://localhost:8081/feedback?userId=" + userId + "&pageDirection=" + direction + "&offset=" + offsetId.ToString();
+                url = ConfigurationManager.Settings.ClientServiceEndpoint + "/feedback?userId=" + userId + "&pageDirection=" + direction + "&offset=" + offsetId.ToString();
             }
             else
             {
                 var feedbackEntry = _data.FeedbackEntries.First();
                 int offsetId = feedbackEntry.Oid;
-                url = "http://localhost:8081/feedback?userId=" + userId + "&pageDirection=" + direction + "&offset=" + offsetId.ToString();
+                url = ConfigurationManager.Settings.ClientServiceEndpoint + "/feedback?userId=" + userId + "&pageDirection=" + direction + "&offset=" + offsetId.ToString();
             }
 
             var response = await client.GetAsync(url);
@@ -159,7 +160,7 @@ namespace phoenix_prototype
         {
             string url = null;
             using var client = new HttpClient();
-            url = "http://localhost:8081/servicereports?userId=" + userId;
+            url = ConfigurationManager.Settings.ClientServiceEndpoint + "/servicereports?userId=" + userId;
             var response = await client.GetAsync(url);
             Console.WriteLine(response.Content);
             response.EnsureSuccessStatusCode();
