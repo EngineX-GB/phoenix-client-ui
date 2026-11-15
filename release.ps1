@@ -199,6 +199,10 @@ IF ($LASTEXITCODE -ne 0) {
 # Copy the updated version.json file into the release folder before it gets packaged up.
 Copy-Item -Path $PROJECT_HOME_DIRECTORY\version.json -Destination $RELEASE_FOLDER
 
+# Copy the services batch file (for the standalone version)
+Copy-Item -Path $PROJECT_HOME_DIRECTORY\services.bat -Destination $RELEASE_FOLDER
+
+
 # create the temp folder
 New-Item -Path $TEMP_FOLDER -ItemType Directory -Force | Out-Null
 
