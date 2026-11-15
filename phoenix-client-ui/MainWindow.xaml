@@ -131,7 +131,8 @@
 
     <DockPanel>
         <!-- Custom Title Bar -->
-        <Border DockPanel.Dock="Top"
+        <Border Name="TitleBar"
+                DockPanel.Dock="Top"
                 Background="#333"
                 Height="25"
                 MouseDown="TitleBar_MouseDown"

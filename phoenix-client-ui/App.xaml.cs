@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿
+using phoenix_prototype.config;
 using System.Data;
 using System.Windows;
 
@@ -9,6 +10,14 @@ namespace phoenix_prototype
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            ConfigurationManager.Load();
+        }
+
     }
 
 }

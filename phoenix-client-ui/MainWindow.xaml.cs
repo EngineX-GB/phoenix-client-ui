@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using phoenix_prototype.config;
 using System.CodeDom;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -69,6 +70,12 @@ namespace phoenix_prototype
             this.Width = workArea.Width; 
             this.Height = workArea.Height;
 
+            // Differentiate if the app instance running is for DEV or PROD.
+
+            if (ConfigurationManager.Settings.Environment.Equals("DEV"))
+            {
+                TitleBar.Background = Brushes.Navy;
+            }
 
         }
 
