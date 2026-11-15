@@ -222,7 +222,7 @@ $RELEASE_TITLE="$PROJECT_NAME Release Title ($NEW_CLIENT_UI_VERSION)"
 $RELEASE_NOTES="$PROJECT_NAME Release Notes ($NEW_CLIENT_UI_VERSION)"
 
 Write-Host "[INFO] Publishing artefact..."
-& $GITHUB_CLI_BIN release create $NEW_CLIENT_UI_VERSION $TEMP_FOLDER/$PROJECT_NAME.zip --notes $RELEASE_NOTES -t $RELEASE_TITLE
+& $GITHUB_CLI_BIN release create $NEW_CLIENT_UI_VERSION $TEMP_FOLDER/$PROJECT_NAME.zip $PROJECT_HOME_DIRECTORY/scripts/install.ps1 $PROJECT_HOME_DIRECTORY/scripts/install-dev.ps1 --notes $RELEASE_NOTES -t $RELEASE_TITLE
 Write-Host ""
 Write-Host "[INFO] Removing Temp Files"
 Remove-Item "$RELEASE_FOLDER" -Recurse -Force
