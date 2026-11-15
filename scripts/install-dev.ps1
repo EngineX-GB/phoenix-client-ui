@@ -28,4 +28,17 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EngineX-GB/phoenix-mar
 
 # download a copy of the dev-services script to orchestrate the running of the 3 services in standalone mode
 
-#
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EngineX-GB/phoenix-client-ui/refs/heads/master/dev-services.bat" -OutFile "$CURRENT_DEV_DIR\net8.0-windows\services.bat"
+
+# Now update the appsettings.json file to use
+
+$APP_SETTINGS_FILE = "$CURRENT_DEV_DIR\net8.0-windows\appsettings.json"
+
+$APP_SETTINGS = Get-Content $APP_SETTINGS_FILE -Raw | ConvertFrom-Json
+$APP_SETTINGS."environment" = "DEV"
+$APP_SETTINGS."clientServiceEndpoint" = "http://localhost:9081"
+$APP_SETTINGS."clientServiceWsEndpoint" = "ws://localhost:9081"
+$APP_SETTINGS | ConvertTo-Json -Depth 10 | Set-Content $APP_SETTINGS_FILE
+
+
+Write-Host "[INFO] Dev installation complete."
