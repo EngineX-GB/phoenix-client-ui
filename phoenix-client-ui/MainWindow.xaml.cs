@@ -153,6 +153,14 @@ namespace phoenix_prototype
             this.Close();
         }
 
+
+        private void TelephoneNumberSearch_Click(object sender, RoutedEventArgs e)
+        {
+            TelephoneNumberSearch telephoneNumberSearchDialog = new TelephoneNumberSearch();
+            telephoneNumberSearchDialog.Owner = this;
+            telephoneNumberSearchDialog.ShowDialog();
+        }
+
         private void LoadMarketData_LondonRegion_Click(object sender, RoutedEventArgs e)
         {
             if (this.marketLoadController != null) {

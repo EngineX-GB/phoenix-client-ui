@@ -248,10 +248,10 @@ namespace phoenix_prototype
         }
 
 
-        private void FetchRatings_Click(object sender, RoutedEventArgs e)
+        private void FetchRecentRatings_Click(object sender, RoutedEventArgs e)
         {
             // get the number of selected rows, extract the IDs, then create a request to the client service to fetch
-            // up to date ratings data
+            // up to date ratings data (first recent page of ratings)
 
 
             List<string> userIdList = new List<string>();
@@ -263,7 +263,28 @@ namespace phoenix_prototype
 
             if (userIdList.Count > 0)
             {
-                ratingsLoadController.LoadFeedbackData(userIdList);
+                ratingsLoadController.LoadFeedbackData(userIdList, false);
+            }
+
+        }
+
+
+        private void FetchAllRatings_Click(object sender, RoutedEventArgs e)
+        {
+            // get the number of selected rows, extract the IDs, then create a request to the client service to fetch
+            // up to date ratings data (first recent page of ratings)
+
+
+            List<string> userIdList = new List<string>();
+            var selectedUsers = DataGridSearch.SelectedItems.Cast<SearchEntry>().ToList();
+            foreach (var user in selectedUsers)
+            {
+                userIdList.Add(user.UserId);
+            }
+
+            if (userIdList.Count > 0)
+            {
+                ratingsLoadController.LoadFeedbackData(userIdList, true);
             }
 
         }

@@ -15,17 +15,18 @@ namespace phoenix_prototype
     {
         public RatingsLoadController() { }
 
-        public bool LoadFeedbackData(List<string> userIdList)
+        public bool LoadFeedbackData(List<string> userIdList, bool fetchAllRatings)
         {
-            submitDataLoad(userIdList);
+            submitDataLoad(userIdList, fetchAllRatings);
             return true;
         }
 
 
-        private async Task submitDataLoad(List<string> userIdList)
+        private async Task submitDataLoad(List<string> userIdList, bool fetchAllRatings)
         {
             // make the call to the client service to load the region
-            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/feedback/load";
+            string ratingsEndpoint = fetchAllRatings ? "all" : "recent";
+            string url = ConfigurationManager.Settings.ClientServiceEndpoint + "/feedback/load/" + ratingsEndpoint;
             using var client = new HttpClient();
 
 

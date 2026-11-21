@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:phoenix_prototype"
         mc:Ignorable="d"
         Title="Email Accounts" Height="300" Width="400"
-        WindowStyle="ToolWindow"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         ShowInTaskbar="False"

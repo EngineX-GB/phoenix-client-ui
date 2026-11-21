@@ -5,7 +5,7 @@
         Height="450"
         Width="450"
         Background="#1A1A1A"
-        WindowStyle="ToolWindow"
+        WindowStyle="ThreeDBorderWindow"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"

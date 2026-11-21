@@ -240,6 +240,11 @@
                 <MenuItem Header="Refresh Analytics Data" />
             </MenuItem>
 
+            <MenuItem Header="Tools">
+                <MenuItem Header="Search Telephone Number" Click="TelephoneNumberSearch_Click" />
+            </MenuItem>
+
+            
             <MenuItem Header="Communications">
                 <MenuItem Header="SMTP Settings" Click="SmtpSettings_Click" />
                 <MenuItem Header="Email Account Settings" Click="EmailAccountSettings_Click" />

@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:phoenix_prototype"
         mc:Ignorable="d"
         Title="Email Configuration" Height="300" Width="400"
-        WindowStyle="ToolWindow"
+        BorderBrush="Black"
+        BorderThickness="3"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
@@ -16,7 +18,7 @@
 
 
         <!-- Custom Toolbar -->
-        <Border DockPanel.Dock="Top" Background="#222222" Padding="2">
+        <Border DockPanel.Dock="Top" Background="#111111" Padding="2">
             <Border.Resources>
                 <Style TargetType="Button" x:Key="DarkButton">
                     <Setter Property="Background" Value="Transparent"/>
@@ -76,10 +78,10 @@
             </StackPanel>
         </Border>
 
-
+        <!-- background color initially : #222-->
         <!-- Status Bar -->
         <Border DockPanel.Dock="Bottom"
-            Background="#222"
+            Background="#111111"
             Height="22"
             BorderThickness="0">
             <Grid>
@@ -92,10 +94,12 @@
             </Grid>
         </Border>
 
+        <!-- Color background initially : #1A1A1A-->
+        
         <DataGrid x:Name="DataGridEmailConfigs" 
           ItemsSource="{Binding EmailConfigs}"
           AutoGenerateColumns="False"
-          Background="#1A1A1A"
+          Background="#111111"
           Foreground="White"
           GridLinesVisibility="None"
           HeadersVisibility="Column"
@@ -134,7 +138,8 @@
             <!-- this is needed to double override the colour for selecting a row - default is blue, but set it to grey-->
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="#1A1A1A"/>
+                    <!-- Previous background cell colour : #1A1A1A"-->
+                    <Setter Property="Background" Value="#111111"/>
                     <Setter Property="Foreground" Value="LightGray"/>
 
                     <Style.Triggers>
@@ -172,7 +177,8 @@
                     <Setter Property="FontSize" Value="10"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#333333"/>
+                            <Setter Property="Background" Value="#111111"/>
+                            <!--  #333333-->
                             <!-- Dark grey -->
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
