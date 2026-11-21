@@ -88,3 +88,4 @@ publish/
 .env
 .env.*
 !.env.example
+/phoenix-client-ui/appsettings.json
